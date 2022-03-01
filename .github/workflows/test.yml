@@ -1,0 +1,67 @@
+name: "Test"
+on:
+  pull_request:
+
+jobs:  
+  import_sorter:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '2.10.2'
+        cache: true
+        cache-key: '2.10.2'
+    - run: which flutter
+    - name: bootstrap
+      run: |
+        flutter pub get
+        flutter pub run build_runner build
+    - run: flutter pub run import_sorter:main --exit-if-changed
+  
+  danger:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '2.10.2'
+        cache: true
+        cache-key: '2.10.2'
+    - run: which flutter
+    - name: bootstrap
+      run: |
+        flutter pub get
+        flutter pub run build_runner build
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6
+        bundler-cache: true
+    - name: Install Danger
+      run: |
+        gem install danger
+        gem install danger-flutter_lint
+    - name: Flutter analyze
+      run: flutter analyze > flutter_analyze_report.txt
+    - name: Run Danger
+      if: ${{ always() }}
+      run: danger
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '2.10.2'
+        cache: true
+        cache-key: '2.10.2'
+    - run: which flutter
+    - name: bootstrap
+      run: |
+        flutter pub get
+        flutter pub run build_runner build
+    - run: flutter test
