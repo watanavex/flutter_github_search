@@ -11,8 +11,8 @@ part 'search_api.g.dart';
 
 @RestApi(baseUrl: 'https://api.github.com')
 abstract class SearchApi {
-  factory SearchApi.withReader(Reader reader) => SearchApi(reader(dioProvider));
   factory SearchApi(Dio dio) = _SearchApi;
+  factory SearchApi.withReader(Reader reader) => SearchApi(reader(dioProvider));
 
   @GET('/search/repositories')
   Future<SearchResult> search(

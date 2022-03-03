@@ -14,9 +14,9 @@ final repositoryApiProvider =
 
 @RestApi(baseUrl: 'https://api.github.com')
 abstract class RepositoryDetailApi {
+  factory RepositoryDetailApi(Dio dio) = _RepositoryDetailApi;
   factory RepositoryDetailApi.withReader(Reader reader) =>
       RepositoryDetailApi(reader(dioProvider));
-  factory RepositoryDetailApi(Dio dio) = _RepositoryDetailApi;
 
   @GET('/repos/{owner}/{repo}')
   Future<RepositoryDetail> fetch(
