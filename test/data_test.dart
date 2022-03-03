@@ -1,6 +1,9 @@
+// 📦 Package imports:
+import 'package:flutter_test/flutter_test.dart';
+
+// 🌎 Project imports:
 import 'package:flutter_github_search/api/data/repository_detail.dart';
 import 'package:flutter_github_search/api/data/search_result.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Json deserialize to SearchResult', () {
