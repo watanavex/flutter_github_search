@@ -1,5 +1,9 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// 📦 Package imports:
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'search_page_state.freezed.dart';
 
 @freezed
