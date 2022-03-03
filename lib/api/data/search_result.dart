@@ -15,7 +15,7 @@ class SearchResult with _$SearchResult {
   const factory SearchResult({
     required int totalCount,
     required bool incompleteResults,
-    required List<RepositorySummary> repositories,
+    required List<RepositorySummary> items,
   }) = _SearchResult;
   factory SearchResult.fromJson(Map<String, dynamic> json) =>
       _$SearchResultFromJson(json);
