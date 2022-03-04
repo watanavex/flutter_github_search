@@ -40,6 +40,4 @@ class RepositorySummary with _$RepositorySummary {
     required String name,
     required String imageUrl,
   }) = _RepositorySummary;
-  factory RepositorySummary.fromJson(Map<String, dynamic> json) =>
-      _$RepositorySummaryFromJson(json);
 }
