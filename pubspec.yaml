@@ -38,6 +38,7 @@ dependencies:
   flutter_hooks: any
   hooks_riverpod: any
   retrofit: any
+  mockito: any
 
 dev_dependencies:
   flutter_test:
