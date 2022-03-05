@@ -30,7 +30,7 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
     state = state.copyWith(isSearchMode: newIsSearchMode);
   }
 
-  void searchRepositories(String query) async {
+  Future<void> searchRepositories(String query) async {
     if (state.searchState is Searching) {
       return;
     }
@@ -67,8 +67,8 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
     );
   }
 
-  void fetchNext() async {
-    if (state.searchState is Searching && state.searchState is FetchingNext) {
+  Future<void> fetchNext() async {
+    if (state.searchState is Searching || state.searchState is FetchingNext) {
       return;
     }
 
