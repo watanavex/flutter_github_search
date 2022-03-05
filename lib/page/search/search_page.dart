@@ -12,7 +12,35 @@ class SearchPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return Scaffold(
+      appBar: _SearchAppBar(),
+      body: _buildBody(context, ref),
+    );
+  }
+
+  Widget _buildBody(BuildContext context, WidgetRef ref) {
+    final searchState = ref.watch(
+        searchPageStateNotifierProvider.select((value) => value.searchState));
+    return searchState.when(
+      uninitialized: () {
+        return Container();
+      },
+      searching: () {
+        return const Text('searching');
+      },
+      success: (repositories, query, page, haxNext) {
+        return const Text('success');
+      },
+      fetchingNext: (repositories, query, page) {
+        return const Text('fetchingNext');
+      },
+      fail: () {
+        return const Text('fail');
+      },
+      empty: () {
+        return const Text('empty');
+      },
+    );
   }
 }
 
