@@ -13,8 +13,6 @@ import 'package:flutter_github_search/ui/page/detail/detail_page.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
 
-// 🌎 Project imports:
-
 class SearchPage extends HookConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -66,13 +64,14 @@ class SearchPage extends HookConsumerWidget {
     );
   }
 
-  static const _leadingSize = 56.0;
-  static const _placeholder = Icon(
-    Icons.person,
-    size: _leadingSize,
-  );
   Widget _buildListItems(
       BuildContext context, WidgetRef ref, RepositorySummary item) {
+    const _leadingSize = 56.0;
+    const _placeholder = Icon(
+      Icons.person,
+      size: _leadingSize,
+    );
+
     return ListTile(
       leading: CircleImageView(
         imageUrl: item.imageUrl,
