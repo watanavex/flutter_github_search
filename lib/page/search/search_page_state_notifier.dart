@@ -10,7 +10,7 @@ import 'package:flutter_github_search/api/search_api.dart';
 import 'package:flutter_github_search/page/search/search_page_state.dart';
 
 final searchPageStateNotifierProvider =
-    StateNotifierProvider<SearchPageStateNotifier, SearchPageState>(
+    StateNotifierProvider.autoDispose<SearchPageStateNotifier, SearchPageState>(
         (ref) => SearchPageStateNotifier(ref.read));
 
 class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
