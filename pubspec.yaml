@@ -39,6 +39,7 @@ dependencies:
   hooks_riverpod: any
   retrofit: any
   mockito: any
+  cached_network_image: any
 
 dev_dependencies:
   flutter_test:
