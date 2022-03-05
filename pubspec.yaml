@@ -104,3 +104,4 @@ import_sorter:
   ignored_files:
     - /*.g.dart
     - /*.freezed.dart
+    - /*.mocks.dart
