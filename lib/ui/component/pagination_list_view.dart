@@ -1,5 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:flutter_github_search/ui/component/loading_view.dart';
 
 class PaginationListView extends StatelessWidget {

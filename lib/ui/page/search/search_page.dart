@@ -1,12 +1,16 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_github_search/ui/component/circle_image_view.dart';
-import 'package:flutter_github_search/ui/component/pagination_list_view.dart';
-import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
-import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
 
 // 📦 Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// 🌎 Project imports:
+import 'package:flutter_github_search/ui/component/circle_image_view.dart';
+import 'package:flutter_github_search/ui/component/error_view.dart';
+import 'package:flutter_github_search/ui/component/loading_view.dart';
+import 'package:flutter_github_search/ui/component/pagination_list_view.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
 
 // 🌎 Project imports:
 
@@ -29,7 +33,7 @@ class SearchPage extends HookConsumerWidget {
         return Container();
       },
       searching: () {
-        return const Text('searching');
+        return const LoadingView();
       },
       success: (repositories, query, page, haxNext) {
         return _buildListView(context, ref, repositories, haxNext);
@@ -38,10 +42,12 @@ class SearchPage extends HookConsumerWidget {
         return _buildListView(context, ref, repositories, true);
       },
       fail: () {
-        return const Text('fail');
+        return const ErrorView();
       },
       empty: () {
-        return const Text('empty');
+        return const ErrorView(
+          message: '検索結果は0件です',
+        );
       },
     );
   }
