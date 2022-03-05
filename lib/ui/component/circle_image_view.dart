@@ -1,8 +1,12 @@
 // 🐦 Flutter imports:
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CircleImageView extends StatelessWidget {
   const CircleImageView({
@@ -12,16 +16,16 @@ class CircleImageView extends StatelessWidget {
   }) : super(key: key);
 
   final String imageUrl;
-  final Widget Function() placeholder;
+  final Widget placeholder;
 
   @override
   Widget build(BuildContext context) {
     return ClipOval(
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        placeholder: (context, url) => placeholder(),
+        placeholder: (context, url) => placeholder,
         // ignore: implicit_dynamic_parameter
-        errorWidget: (context, url, _) => placeholder(),
+        errorWidget: (context, url, _) => placeholder,
       ),
     );
   }

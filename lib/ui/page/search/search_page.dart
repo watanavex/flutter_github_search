@@ -66,17 +66,17 @@ class SearchPage extends HookConsumerWidget {
     );
   }
 
+  static const _leadingSize = 56.0;
+  static const _placeholder = Icon(
+    Icons.person,
+    size: _leadingSize,
+  );
   Widget _buildListItems(
       BuildContext context, WidgetRef ref, RepositorySummary item) {
-    const leadingSize = 56.0;
-    const placeholder = Icon(
-      Icons.person,
-      size: leadingSize,
-    );
     return ListTile(
       leading: CircleImageView(
         imageUrl: item.imageUrl,
-        placeholder: () => placeholder,
+        placeholder: _placeholder,
       ),
       title: Text(
         item.name,
@@ -86,7 +86,7 @@ class SearchPage extends HookConsumerWidget {
         item.owner,
         style: Theme.of(context).textTheme.caption,
       ),
-      minLeadingWidth: leadingSize,
+      minLeadingWidth: _leadingSize,
       onTap: () {
         Navigator.push(
           context,

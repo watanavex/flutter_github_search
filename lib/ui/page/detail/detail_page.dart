@@ -98,7 +98,7 @@ class DetailPage extends HookConsumerWidget {
       alignment: FractionalOffset.center,
       child: CircleImageView(
         imageUrl: imageUrl,
-        placeholder: () => placeholder,
+        placeholder: placeholder,
       ),
     );
   }
