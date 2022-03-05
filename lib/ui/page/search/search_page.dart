@@ -9,6 +9,7 @@ import 'package:flutter_github_search/ui/component/circle_image_view.dart';
 import 'package:flutter_github_search/ui/component/error_view.dart';
 import 'package:flutter_github_search/ui/component/loading_view.dart';
 import 'package:flutter_github_search/ui/component/pagination_list_view.dart';
+import 'package:flutter_github_search/ui/page/detail/detail_page.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
 
@@ -87,7 +88,15 @@ class SearchPage extends HookConsumerWidget {
       ),
       minLeadingWidth: leadingSize,
       onTap: () {
-        debugPrint('tap list item');
+        Navigator.push(
+          context,
+          MaterialPageRoute<DetailPage>(
+            builder: (_) => DetailPage(
+              owner: item.owner,
+              name: item.name,
+            ),
+          ),
+        );
       },
     );
   }

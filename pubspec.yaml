@@ -40,6 +40,7 @@ dependencies:
   retrofit: any
   mockito: any
   cached_network_image: any
+  auto_size_text: any
 
 dev_dependencies:
   flutter_test:
