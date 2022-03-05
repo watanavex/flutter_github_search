@@ -55,24 +55,13 @@ class SearchPage extends HookConsumerWidget {
   Widget _buildListView(BuildContext context, WidgetRef ref,
       List<RepositorySummary> repositories, bool hasNext) {
     final notifier = ref.read(searchPageStateNotifierProvider.notifier);
-    return Scrollbar(
-      child: NotificationListener<ScrollNotification>(
-        child: PaginationListView(
-          itemCount: repositories.length,
-          hasNext: hasNext,
-          fetchNext: notifier.fetchNext,
-          itemBuilder: (context, index) {
-            return _buildListItems(context, ref, repositories[index]);
-          },
-        ),
-        onNotification: (notification) {
-          if (notification.metrics.atEdge &&
-              notification.metrics.extentAfter == 0) {
-            notifier.fetchNext();
-          }
-          return false;
-        },
-      ),
+    return PaginationListView(
+      itemCount: repositories.length,
+      hasNext: hasNext,
+      fetchNext: notifier.fetchNext,
+      itemBuilder: (context, index) {
+        return _buildListItems(context, ref, repositories[index]);
+      },
     );
   }
 
