@@ -12,16 +12,16 @@ class CircleImageView extends StatelessWidget {
   }) : super(key: key);
 
   final String imageUrl;
-  final Widget Function() placeholder;
+  final Widget placeholder;
 
   @override
   Widget build(BuildContext context) {
     return ClipOval(
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        placeholder: (context, url) => placeholder(),
+        placeholder: (context, url) => placeholder,
         // ignore: implicit_dynamic_parameter
-        errorWidget: (context, url, _) => placeholder(),
+        errorWidget: (context, url, _) => placeholder,
       ),
     );
   }

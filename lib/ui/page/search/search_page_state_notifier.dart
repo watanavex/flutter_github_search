@@ -35,11 +35,9 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
       return;
     }
 
-    await Future(() {
-      state = state.copyWith(
-        searchState: const SearchState.searching(),
-      );
-    });
+    state = state.copyWith(
+      searchState: const SearchState.searching(),
+    );
 
     const page = 1;
     final SearchResult result;
