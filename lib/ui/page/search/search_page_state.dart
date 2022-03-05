@@ -17,19 +17,24 @@ class SearchPageState with _$SearchPageState {
 @freezed
 class SearchState with _$SearchState {
   const factory SearchState.uninitialized() = Uninitialized;
+
   const factory SearchState.searching() = Searching;
+
   factory SearchState.success({
     required List<RepositorySummary> repositories,
     required String query,
     required int page,
     required bool hasNext,
   }) = Success;
+
   const factory SearchState.fetchingNext({
     required List<RepositorySummary> repositories,
     required String query,
     required int page,
   }) = FetchingNext;
+
   const factory SearchState.fail() = Fail;
+
   const factory SearchState.empty() = Empty;
 }
 

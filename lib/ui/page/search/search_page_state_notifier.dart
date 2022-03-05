@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // 🌎 Project imports:
 import 'package:flutter_github_search/api/data/search_result.dart';
 import 'package:flutter_github_search/api/search_api.dart';
-import 'package:flutter_github_search/page/search/search_page_state.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 
 final searchPageStateNotifierProvider =
     StateNotifierProvider.autoDispose<SearchPageStateNotifier, SearchPageState>(
@@ -84,8 +84,8 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
     state = state.copyWith(
       searchState: SearchState.fetchingNext(
         repositories: currentState.repositories,
-        query: currentState.query,
-        page: currentState.page,
+        query: query,
+        page: page,
       ),
     );
 
@@ -113,6 +113,13 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
         hasNext: result.hasNext,
       ),
     );
+  }
+
+  set debugState(SearchPageState state) {
+    assert(() {
+      this.state = state;
+      return true;
+    }(), '');
   }
 }
 
