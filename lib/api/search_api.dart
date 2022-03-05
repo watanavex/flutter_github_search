@@ -9,6 +9,8 @@ import 'package:flutter_github_search/api/dio.dart';
 
 part 'search_api.g.dart';
 
+final searchApiProvider = Provider((ref) => SearchApi.withReader(ref.read));
+
 @RestApi(baseUrl: 'https://api.github.com')
 abstract class SearchApi {
   factory SearchApi(Dio dio) = _SearchApi;
