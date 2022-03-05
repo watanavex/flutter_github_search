@@ -84,8 +84,8 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
     state = state.copyWith(
       searchState: SearchState.fetchingNext(
         repositories: currentState.repositories,
-        query: currentState.query,
-        page: currentState.page,
+        query: query,
+        page: page,
       ),
     );
 
@@ -113,6 +113,13 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
         hasNext: result.hasNext,
       ),
     );
+  }
+
+  set debugState(SearchPageState state) {
+    assert(() {
+      this.state = state;
+      return true;
+    }(), '');
   }
 }
 
