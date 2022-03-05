@@ -49,10 +49,7 @@ void main() {
       fireImmediately: true,
     );
 
-    notifier.searchRepositories('query');
-
-    await untilCalled(_mockSearchApi.search(any, any));
-    await Future(() {});
+    await notifier.searchRepositories('query');
 
     final repositories = _dummySearchResult.items
         .map((e) => RepositorySummary(
