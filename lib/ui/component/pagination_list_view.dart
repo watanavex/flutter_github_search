@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_github_search/ui/component/loading_view.dart';
 
 class PaginationListView extends StatelessWidget {
   const PaginationListView({
@@ -25,9 +26,7 @@ class PaginationListView extends StatelessWidget {
             if (!hasNext || index < itemCount) {
               return itemBuilder(context, index);
             }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const LoadingView();
           },
         ),
         onNotification: (notification) {
