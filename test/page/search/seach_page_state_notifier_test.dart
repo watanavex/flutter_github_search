@@ -10,8 +10,8 @@ import 'package:mockito/mockito.dart';
 // 🌎 Project imports:
 import 'package:flutter_github_search/api/data/search_result.dart';
 import 'package:flutter_github_search/api/search_api.dart';
-import 'package:flutter_github_search/page/search/search_page_state.dart';
-import 'package:flutter_github_search/page/search/search_page_state_notifier.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
 import '../../dummy/dummy_search_result.dart';
 import '../../helper.dart';
 import 'seach_page_state_notifier_test.mocks.dart';

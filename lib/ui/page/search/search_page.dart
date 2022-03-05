@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
-import 'package:flutter_github_search/component/circle_image_view.dart';
-import 'package:flutter_github_search/component/pagination_list_view.dart';
-import 'package:flutter_github_search/page/search/search_page_state.dart';
-import 'package:flutter_github_search/page/search/search_page_state_notifier.dart';
+import 'package:flutter_github_search/ui/component/circle_image_view.dart';
+import 'package:flutter_github_search/ui/component/error_view.dart';
+import 'package:flutter_github_search/ui/component/loading_view.dart';
+import 'package:flutter_github_search/ui/component/pagination_list_view.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
+
+// 🌎 Project imports:
 
 class SearchPage extends HookConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -29,7 +33,7 @@ class SearchPage extends HookConsumerWidget {
         return Container();
       },
       searching: () {
-        return const Text('searching');
+        return const LoadingView();
       },
       success: (repositories, query, page, haxNext) {
         return _buildListView(context, ref, repositories, haxNext);
@@ -38,10 +42,12 @@ class SearchPage extends HookConsumerWidget {
         return _buildListView(context, ref, repositories, true);
       },
       fail: () {
-        return const Text('fail');
+        return const ErrorView();
       },
       empty: () {
-        return const Text('empty');
+        return const ErrorView(
+          message: '検索結果は0件です',
+        );
       },
     );
   }
@@ -49,24 +55,13 @@ class SearchPage extends HookConsumerWidget {
   Widget _buildListView(BuildContext context, WidgetRef ref,
       List<RepositorySummary> repositories, bool hasNext) {
     final notifier = ref.read(searchPageStateNotifierProvider.notifier);
-    return Scrollbar(
-      child: NotificationListener<ScrollNotification>(
-        child: PaginationListView(
-          itemCount: repositories.length,
-          hasNext: hasNext,
-          fetchNext: notifier.fetchNext,
-          itemBuilder: (context, index) {
-            return _buildListItems(context, ref, repositories[index]);
-          },
-        ),
-        onNotification: (notification) {
-          if (notification.metrics.atEdge &&
-              notification.metrics.extentAfter == 0) {
-            notifier.fetchNext();
-          }
-          return false;
-        },
-      ),
+    return PaginationListView(
+      itemCount: repositories.length,
+      hasNext: hasNext,
+      fetchNext: notifier.fetchNext,
+      itemBuilder: (context, index) {
+        return _buildListItems(context, ref, repositories[index]);
+      },
     );
   }
 
