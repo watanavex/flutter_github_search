@@ -25,6 +25,11 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
   final Reader _reader;
   late final _searchApi = _reader(searchApiProvider);
 
+  void toggleMode() {
+    final newIsSearchMode = !state.isSearchMode;
+    state = state.copyWith(isSearchMode: newIsSearchMode);
+  }
+
   void searchRepositories(String query) async {
     if (state.searchState is Searching) {
       return;
