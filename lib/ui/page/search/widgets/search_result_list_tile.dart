@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_github_search/ui/component/circle_image.dart';
-import 'package:flutter_github_search/ui/page/detail/detail_page.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 
 class SearchResultListTile extends StatelessWidget {

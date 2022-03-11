@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class SearchAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const SearchAppBar({Key? key}) : super(key: key);
 
-  final _searchIcon = const Icon(Icons.search);
+  Icon get _searchIcon => const Icon(Icons.search);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

@@ -15,7 +15,7 @@ class SearchPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchState = ref.watch(searchStateNotifierProvider);
     return Scaffold(
-      appBar: SearchAppBar(),
+      appBar: const SearchAppBar(),
       body: searchState.when(
         uninitialized: () {
           return Container();
