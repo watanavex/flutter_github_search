@@ -53,7 +53,7 @@ class SearchPage extends HookConsumerWidget {
 
   Widget _buildListView(BuildContext context, WidgetRef ref,
       List<RepositorySummary> repositories, bool hasNext) {
-    final notifier = ref.read(searchPageStateNotifierProvider.notifier);
+    final notifier = ref.watch(searchPageStateNotifierProvider.notifier);
     return PaginationListView(
       itemCount: repositories.length,
       hasNext: hasNext,

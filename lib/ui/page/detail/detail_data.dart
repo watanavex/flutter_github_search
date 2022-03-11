@@ -52,7 +52,7 @@ class Argment with _$Argment {
 
 final repositoryDetailFutureProvider = FutureProvider.family
     .autoDispose<RepositoryDetail, Argment>((ref, arg) async {
-  final api = ref.read(repositoryApiProvider);
+  final api = ref.watch(repositoryApiProvider);
 
   return api.fetch(arg.owner, arg.name).then((value) => value.convert());
 });
