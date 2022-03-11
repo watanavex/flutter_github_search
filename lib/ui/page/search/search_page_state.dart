@@ -10,7 +10,7 @@ class SearchState with _$SearchState {
 
   const factory SearchState.searching() = SearchStateSearching;
 
-  factory SearchState.success({
+  const factory SearchState.success({
     required List<RepositorySummary> repositories,
     required String query,
     required int page,
