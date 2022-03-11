@@ -143,7 +143,7 @@ void main() {
     );
 
     // given
-    notifier.debugState = SearchState.success(
+    notifier.debugState = const SearchState.success(
       repositories: [],
       query: 'query',
       page: 1,
@@ -166,7 +166,7 @@ void main() {
       listener(any, const SearchState.uninitialized()),
       listener(
         any,
-        SearchState.success(
+        const SearchState.success(
           repositories: [],
           query: 'query',
           page: 1,
@@ -205,7 +205,7 @@ void main() {
     );
 
     // given
-    notifier.debugState = SearchState.success(
+    notifier.debugState = const SearchState.success(
       repositories: [],
       query: 'query',
       page: 1,
@@ -222,7 +222,7 @@ void main() {
       listener(any, const SearchState.uninitialized()),
       listener(
         any,
-        SearchState.success(
+        const SearchState.success(
           repositories: [],
           query: 'query',
           page: 1,
@@ -239,7 +239,7 @@ void main() {
       ),
       listener(
         any,
-        SearchState.success(
+        const SearchState.success(
           repositories: [],
           query: 'query',
           page: 2,
