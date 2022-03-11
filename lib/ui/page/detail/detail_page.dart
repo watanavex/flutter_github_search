@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_github_search/ui/component/circle_image_view.dart';
+import 'package:flutter_github_search/ui/component/circle_image.dart';
 import 'package:flutter_github_search/ui/component/error_view.dart';
 import 'package:flutter_github_search/ui/component/loading_view.dart';
 import 'package:flutter_github_search/ui/page/detail/detail_data.dart';
@@ -91,7 +91,7 @@ class DetailPage extends HookConsumerWidget {
     return FractionallySizedBox(
       widthFactor: imageWidthFactor,
       alignment: FractionalOffset.center,
-      child: CircleImageView(
+      child: CircleImage(
         imageUrl: imageUrl,
         placeholder: placeholder,
       ),

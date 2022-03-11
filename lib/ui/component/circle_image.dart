@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CircleImageView extends StatelessWidget {
-  const CircleImageView({
+class CircleImage extends StatelessWidget {
+  const CircleImage({
     Key? key,
     required this.imageUrl,
     required this.placeholder,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_github_search/ui/component/circle_image_view.dart';
+import 'package:flutter_github_search/ui/component/circle_image.dart';
 import 'package:flutter_github_search/ui/component/error_view.dart';
 import 'package:flutter_github_search/ui/component/loading_view.dart';
 import 'package:flutter_github_search/ui/component/pagination_list_view.dart';
@@ -68,7 +68,7 @@ class SearchPage extends HookConsumerWidget {
     );
 
     return ListTile(
-      leading: CircleImageView(
+      leading: CircleImage(
         imageUrl: item.imageUrl,
         placeholder: _placeholder,
       ),
