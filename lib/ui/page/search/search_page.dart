@@ -1,10 +1,4 @@
-// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// 🌎 Project imports:
 import 'package:flutter_github_search/ui/component/circle_image_view.dart';
 import 'package:flutter_github_search/ui/component/error_view.dart';
 import 'package:flutter_github_search/ui/component/loading_view.dart';
@@ -12,6 +6,7 @@ import 'package:flutter_github_search/ui/component/pagination_list_view.dart';
 import 'package:flutter_github_search/ui/page/detail/detail_page.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchPage extends HookConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);

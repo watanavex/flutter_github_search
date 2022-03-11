@@ -1,13 +1,8 @@
-// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
-
-// 📦 Package imports:
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// 🌎 Project imports:
 import 'package:flutter_github_search/api/data/search_result.dart';
 import 'package:flutter_github_search/api/search_api.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final searchPageStateNotifierProvider =
     StateNotifierProvider.autoDispose<SearchPageStateNotifier, SearchPageState>(
