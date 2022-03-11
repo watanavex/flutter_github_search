@@ -86,6 +86,7 @@ class SearchStateNotifier extends StateNotifier<SearchState> {
     );
   }
 
+  @visibleForTesting
   set debugState(SearchState state) {
     assert(() {
       this.state = state;
