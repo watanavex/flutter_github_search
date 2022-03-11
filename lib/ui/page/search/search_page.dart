@@ -1,145 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_github_search/ui/component/circle_image.dart';
 import 'package:flutter_github_search/ui/component/error_view.dart';
 import 'package:flutter_github_search/ui/component/loading_view.dart';
-import 'package:flutter_github_search/ui/component/pagination_list_view.dart';
 import 'package:flutter_github_search/ui/page/detail/detail_page.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
+import 'package:flutter_github_search/ui/page/search/widgets/search_page_app_bar.dart';
+import 'package:flutter_github_search/ui/page/search/widgets/search_result_list_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SearchPage extends HookConsumerWidget {
+class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: _SearchAppBar(),
-      body: _buildBody(context, ref),
-    );
-  }
-
-  Widget _buildBody(BuildContext context, WidgetRef ref) {
     final searchState = ref.watch(
         searchPageStateNotifierProvider.select((value) => value.searchState));
-    return searchState.when(
-      uninitialized: () {
-        return Container();
-      },
-      searching: () {
-        return const LoadingView();
-      },
-      success: (repositories, query, page, haxNext) {
-        return _buildListView(context, ref, repositories, haxNext);
-      },
-      fetchingNext: (repositories, query, page) {
-        return _buildListView(context, ref, repositories, true);
-      },
-      fail: () {
-        return const ErrorView();
-      },
-      empty: () {
-        return const ErrorView(
-          message: '検索結果は0件です',
-        );
-      },
-    );
-  }
-
-  Widget _buildListView(BuildContext context, WidgetRef ref,
-      List<RepositorySummary> repositories, bool hasNext) {
-    final notifier = ref.watch(searchPageStateNotifierProvider.notifier);
-    return PaginationListView(
-      itemCount: repositories.length,
-      hasNext: hasNext,
-      fetchNext: notifier.fetchNext,
-      itemBuilder: (context, index) {
-        return _buildListItems(context, ref, repositories[index]);
-      },
-    );
-  }
-
-  Widget _buildListItems(
-      BuildContext context, WidgetRef ref, RepositorySummary item) {
-    const _leadingSize = 56.0;
-    const _placeholder = Icon(
-      Icons.person,
-      size: _leadingSize,
-    );
-
-    return ListTile(
-      leading: CircleImage(
-        imageUrl: item.imageUrl,
-        placeholder: _placeholder,
+    return Scaffold(
+      appBar: SearchAppBar(),
+      body: searchState.when(
+        uninitialized: () {
+          return Container();
+        },
+        searching: () {
+          return const LoadingView();
+        },
+        success: (repositories, query, page, hasNext) {
+          return SearchResultListView(
+            repositories: repositories,
+            hasNext: hasNext,
+            onTapItem: (repositorySummary) {
+              _onTapListItem(context, repositorySummary);
+            },
+          );
+        },
+        fetchingNext: (repositories, query, page) {
+          return SearchResultListView(
+            repositories: repositories,
+            hasNext: true,
+            onTapItem: (repositorySummary) {
+              _onTapListItem(context, repositorySummary);
+            },
+          );
+        },
+        fail: () {
+          return const ErrorView();
+        },
+        empty: () {
+          return const ErrorView(
+            message: '検索結果は0件です',
+          );
+        },
       ),
-      title: Text(
-        item.name,
-        style: Theme.of(context).textTheme.headline6,
-      ),
-      subtitle: Text(
-        item.owner,
-        style: Theme.of(context).textTheme.caption,
-      ),
-      minLeadingWidth: _leadingSize,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<DetailPage>(
-            builder: (_) => DetailPage(
-              owner: item.owner,
-              name: item.name,
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _SearchAppBar extends HookConsumerWidget implements PreferredSizeWidget {
-  final _searchIcon = const Icon(Icons.search);
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isSearchMode = ref.watch(
-        searchPageStateNotifierProvider.select((value) => value.isSearchMode));
-    return isSearchMode ? _buildSearchBar(ref) : _buildNormalBar(ref);
-  }
-
-  PreferredSizeWidget _buildNormalBar(WidgetRef ref) {
-    final stateNotifier = ref.watch(searchPageStateNotifierProvider.notifier);
-    return AppBar(
-      title: const Text('Github Search App'),
-      actions: [
-        IconButton(
-          onPressed: stateNotifier.toggleMode,
-          icon: _searchIcon,
-        )
-      ],
     );
   }
 
-  PreferredSizeWidget _buildSearchBar(WidgetRef ref) {
-    final stateNotifier = ref.watch(searchPageStateNotifierProvider.notifier);
-    return AppBar(
-      leading: _searchIcon,
-      title: TextField(
-        autofocus: true,
-        decoration: const InputDecoration(
-          hintText: '検索ワードを入力してください',
+  void _onTapListItem(
+      BuildContext context, RepositorySummary repositorySummary) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<DetailPage>(
+        builder: (_) => DetailPage(
+          owner: repositorySummary.owner,
+          name: repositorySummary.name,
         ),
-        textInputAction: TextInputAction.search,
-        onSubmitted: stateNotifier.searchRepositories,
       ),
-      actions: [
-        IconButton(
-          onPressed: stateNotifier.toggleMode,
-          icon: const Icon(Icons.close),
-        )
-      ],
     );
   }
 }
