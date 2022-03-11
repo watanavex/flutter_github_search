@@ -2,23 +2,7 @@ name: "Test"
 on:
   pull_request:
 
-jobs:  
-  import_sorter:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '2.10.2'
-        cache: true
-        cache-key: '2.10.2'
-    - run: which flutter
-    - name: bootstrap
-      run: |
-        flutter pub get
-        flutter pub run build_runner build
-    - run: flutter pub run import_sorter:main --exit-if-changed
-  
+jobs:    
   danger:
     runs-on: ubuntu-latest
     steps:
