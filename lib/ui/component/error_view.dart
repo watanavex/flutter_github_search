@@ -12,10 +12,10 @@ class ErrorView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
+          Icon(
             Icons.error,
             size: 80,
-            color: Colors.red,
+            color: Theme.of(context).colorScheme.error,
           ),
           Text(
             message,
