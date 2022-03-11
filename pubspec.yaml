@@ -38,6 +38,7 @@ dependencies:
   flutter_hooks: any
   hooks_riverpod: any
   retrofit: any
+  dio: ^4.0.4
   mockito: any
   cached_network_image: any
   auto_size_text: any
