@@ -4,35 +4,22 @@ import 'package:flutter_github_search/api/search_api.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final searchPageStateNotifierProvider =
-    StateNotifierProvider.autoDispose<SearchPageStateNotifier, SearchPageState>(
-        (ref) => SearchPageStateNotifier(ref.read));
+final searchStateNotifierProvider =
+    StateNotifierProvider.autoDispose<SearchStateNotifier, SearchState>(
+        (ref) => SearchStateNotifier(ref.read));
 
-class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
-  SearchPageStateNotifier(this._reade)
-      : super(
-          const SearchPageState(
-            isSearchMode: false,
-            searchState: SearchState.uninitialized(),
-          ),
-        );
+class SearchStateNotifier extends StateNotifier<SearchState> {
+  SearchStateNotifier(this._reade) : super(const SearchState.uninitialized());
 
   final Reader _reade;
   SearchApi get _searchApi => _reade(searchApiProvider);
 
-  void toggleMode() {
-    final newIsSearchMode = !state.isSearchMode;
-    state = state.copyWith(isSearchMode: newIsSearchMode);
-  }
-
   Future<void> searchRepositories(String query) async {
-    if (state.searchState is SearchStateSearching) {
+    if (state is SearchStateSearching) {
       return;
     }
 
-    state = state.copyWith(
-      searchState: const SearchState.searching(),
-    );
+    state = const SearchState.searching();
 
     const page = 1;
     final SearchResult result;
@@ -40,33 +27,29 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
       result = await _searchApi.search(query, page);
     } on Exception catch (e) {
       debugPrint('$e');
-      state = state.copyWith(
-        searchState: const SearchState.fail(),
-      );
+      state = const SearchState.fail();
       return;
     }
 
     if (result.items.isEmpty) {
-      state = state.copyWith(searchState: const SearchState.empty());
+      state = const SearchState.empty();
       return;
     }
 
-    state = state.copyWith(
-      searchState: SearchState.success(
-          repositories: result.repositories,
-          query: query,
-          page: page,
-          hasNext: result.hasNext),
+    state = SearchState.success(
+      repositories: result.repositories,
+      query: query,
+      page: page,
+      hasNext: result.hasNext,
     );
   }
 
   Future<void> fetchNext() async {
-    if (state.searchState is SearchStateSearching ||
-        state.searchState is SearchStateFetchingNext) {
+    if (state is SearchStateSearching || state is SearchStateFetchingNext) {
       return;
     }
 
-    final currentState = state.searchState.maybeMap(
+    final currentState = state.maybeMap(
       success: (value) => value,
       orElse: () {
         AssertionError();
@@ -75,12 +58,10 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
 
     final query = currentState.query;
     final page = currentState.page + 1;
-    state = state.copyWith(
-      searchState: SearchState.fetchingNext(
-        repositories: currentState.repositories,
-        query: query,
-        page: page,
-      ),
+    state = SearchState.fetchingNext(
+      repositories: currentState.repositories,
+      query: query,
+      page: page,
     );
 
     final SearchResult result;
@@ -88,28 +69,24 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
       result = await _searchApi.search(query, page);
     } on Exception catch (e) {
       debugPrint('$e');
-      state = state.copyWith(
-        searchState: SearchState.success(
-          repositories: currentState.repositories,
-          query: query,
-          page: page,
-          hasNext: false,
-        ),
+      state = SearchState.success(
+        repositories: currentState.repositories,
+        query: query,
+        page: page,
+        hasNext: false,
       );
       return;
     }
 
-    state = state.copyWith(
-      searchState: SearchState.success(
-        repositories: currentState.repositories + result.repositories,
-        query: query,
-        page: page,
-        hasNext: result.hasNext,
-      ),
+    state = SearchState.success(
+      repositories: currentState.repositories + result.repositories,
+      query: query,
+      page: page,
+      hasNext: result.hasNext,
     );
   }
 
-  set debugState(SearchPageState state) {
+  set debugState(SearchState state) {
     assert(() {
       this.state = state;
       return true;
