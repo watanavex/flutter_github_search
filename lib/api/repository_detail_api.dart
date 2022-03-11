@@ -7,13 +7,11 @@ import 'package:retrofit/retrofit.dart';
 part 'repository_detail_api.g.dart';
 
 final repositoryApiProvider =
-    Provider((ref) => RepositoryDetailApi.withReader(ref.read));
+    Provider((ref) => RepositoryDetailApi(ref.watch(dioProvider)));
 
 @RestApi(baseUrl: 'https://api.github.com')
 abstract class RepositoryDetailApi {
   factory RepositoryDetailApi(Dio dio) = _RepositoryDetailApi;
-  factory RepositoryDetailApi.withReader(Reader reader) =>
-      RepositoryDetailApi(reader(dioProvider));
 
   @GET('/repos/{owner}/{repo}')
   Future<RepositoryDetail> fetch(
