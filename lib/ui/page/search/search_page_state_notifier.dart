@@ -26,7 +26,7 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
   }
 
   Future<void> searchRepositories(String query) async {
-    if (state.searchState is Searching) {
+    if (state.searchState is SearchStateSearching) {
       return;
     }
 
@@ -61,7 +61,8 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
   }
 
   Future<void> fetchNext() async {
-    if (state.searchState is Searching || state.searchState is FetchingNext) {
+    if (state.searchState is SearchStateSearching ||
+        state.searchState is SearchStateFetchingNext) {
       return;
     }
 
