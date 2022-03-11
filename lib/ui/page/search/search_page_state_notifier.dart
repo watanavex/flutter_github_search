@@ -9,7 +9,7 @@ final searchPageStateNotifierProvider =
         (ref) => SearchPageStateNotifier(ref.read));
 
 class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
-  SearchPageStateNotifier(this._reader)
+  SearchPageStateNotifier(this._reade)
       : super(
           const SearchPageState(
             isSearchMode: false,
@@ -17,8 +17,8 @@ class SearchPageStateNotifier extends StateNotifier<SearchPageState> {
           ),
         );
 
-  final Reader _reader;
-  late final _searchApi = _reader(searchApiProvider);
+  final Reader _reade;
+  SearchApi get _searchApi => _reade(searchApiProvider);
 
   void toggleMode() {
     final newIsSearchMode = !state.isSearchMode;
