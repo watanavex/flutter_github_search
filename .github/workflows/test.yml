@@ -7,11 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: kuhnroyal/flutter-fvm-config-action@v1
     - uses: subosito/flutter-action@v2
       with:
-        flutter-version: '2.10.2'
+        flutter-version: ${{ env.FLUTTER_VERSION }}
         cache: true
-        cache-key: '2.10.2'
+        cache-key: ${{ env.FLUTTER_VERSION }}
     - run: which flutter
     - name: bootstrap
       run: |
@@ -38,11 +39,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: kuhnroyal/flutter-fvm-config-action@v1
     - uses: subosito/flutter-action@v2
       with:
-        flutter-version: '2.10.2'
+        flutter-version: ${{ env.FLUTTER_VERSION }}
         cache: true
-        cache-key: '2.10.2'
+        cache-key: ${{ env.FLUTTER_VERSION }}
     - run: which flutter
     - name: bootstrap
       run: |
