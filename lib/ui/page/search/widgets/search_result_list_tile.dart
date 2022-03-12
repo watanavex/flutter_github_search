@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_github_search/ui/component/circle_image.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_router.dart';
 import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SearchResultListTile extends StatelessWidget {
-  const SearchResultListTile(
-      {Key? key, required this.repositorySummary, required this.onTap})
+class SearchResultListTile extends ConsumerWidget {
+  const SearchResultListTile({Key? key, required this.repositorySummary})
       : super(key: key);
 
   final RepositorySummary repositorySummary;
-  final void Function(RepositorySummary) onTap;
   static const _leadingSize = 56.0;
   static const _placeholder = Icon(
     Icons.person,
@@ -16,7 +16,8 @@ class SearchResultListTile extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final searchPageRouter = ref.watch(searchPageRouterProvider);
     return ListTile(
       leading: CircleImage(
         imageUrl: repositorySummary.imageUrl,
@@ -31,9 +32,7 @@ class SearchResultListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.caption,
       ),
       minLeadingWidth: _leadingSize,
-      onTap: () {
-        onTap(repositorySummary);
-      },
+      onTap: () => searchPageRouter.pushDetailPage(context, repositorySummary),
     );
   }
 }

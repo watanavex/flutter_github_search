@@ -10,12 +10,10 @@ class SearchResultListView extends ConsumerWidget {
     Key? key,
     required this.repositories,
     required this.hasNext,
-    required this.onTapItem,
   }) : super(key: key);
 
   final List<RepositorySummary> repositories;
   final bool hasNext;
-  final void Function(RepositorySummary) onTapItem;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,10 +23,7 @@ class SearchResultListView extends ConsumerWidget {
       hasNext: hasNext,
       fetchNext: notifier.fetchNext,
       itemBuilder: (context, index) {
-        return SearchResultListTile(
-          repositorySummary: repositories[index],
-          onTap: onTapItem,
-        );
+        return SearchResultListTile(repositorySummary: repositories[index]);
       },
     );
   }
