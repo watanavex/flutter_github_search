@@ -1,4 +1,3 @@
-// 📦 Package imports:
 import 'package:mockito/mockito.dart';
 
 class Listener<T> extends Mock {

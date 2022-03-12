@@ -38,6 +38,7 @@ dependencies:
   flutter_hooks: any
   hooks_riverpod: any
   retrofit: any
+  dio: ^4.0.4
   mockito: any
   cached_network_image: any
   auto_size_text: any
@@ -57,7 +58,6 @@ dev_dependencies:
   freezed: any
   json_serializable: any
   retrofit_generator: any
-  import_sorter: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

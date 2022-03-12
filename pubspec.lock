@@ -191,7 +191,7 @@ packages:
     source: hosted
     version: "2.2.1"
   dio:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dio
       url: "https://pub.dartlang.org"
@@ -333,13 +333,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  import_sorter:
-    dependency: "direct dev"
-    description:
-      name: import_sorter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.6.0"
   io:
     dependency: transitive
     description:
@@ -695,13 +688,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  tint:
-    dependency: transitive
-    description:
-      name: tint
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   tuple:
     dependency: transitive
     description:

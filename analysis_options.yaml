@@ -2,9 +2,7 @@ include: package:pedantic_mono/analysis_options.yaml
 
 linter:
   rules:
-    directives_ordering: false
     sort_pub_dependencies: false
-    depend_on_referenced_packages: false
 
 analyzer:
   exclude:

@@ -1,11 +1,6 @@
-// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
-
-// 📦 Package imports:
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-// 🌎 Project imports:
 import 'package:flutter_github_search/api/data/owner.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'repository_summary.freezed.dart';
 part 'repository_summary.g.dart';
