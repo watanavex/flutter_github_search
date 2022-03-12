@@ -17,12 +17,8 @@ class SearchPage extends ConsumerWidget {
     return Scaffold(
       appBar: const SearchAppBar(),
       body: searchState.when(
-        uninitialized: () {
-          return Container();
-        },
-        searching: () {
-          return const LoadingView();
-        },
+        uninitialized: () => const SizedBox.shrink(),
+        searching: () => const LoadingView(),
         success: (repositories, query, page, hasNext) {
           return SearchResultListView(
             repositories: repositories,
@@ -41,14 +37,10 @@ class SearchPage extends ConsumerWidget {
             },
           );
         },
-        fail: () {
-          return const ErrorView();
-        },
-        empty: () {
-          return const ErrorView(
-            message: '検索結果は0件です',
-          );
-        },
+        fail: () => const ErrorView(),
+        empty: () => const ErrorView(
+          message: '検索結果は0件です',
+        ),
       ),
     );
   }
