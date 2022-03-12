@@ -17,18 +17,14 @@ class SearchPage extends ConsumerWidget {
       body: searchState.when(
         uninitialized: () => const SizedBox.shrink(),
         searching: () => const LoadingView(),
-        success: (repositories, query, page, hasNext) {
-          return SearchResultListView(
-            repositories: repositories,
-            hasNext: hasNext,
-          );
-        },
-        fetchingNext: (repositories, query, page) {
-          return SearchResultListView(
-            repositories: repositories,
-            hasNext: true,
-          );
-        },
+        success: (repositories, query, page, hasNext) => SearchResultListView(
+          repositories: repositories,
+          hasNext: hasNext,
+        ),
+        fetchingNext: (repositories, query, page) => SearchResultListView(
+          repositories: repositories,
+          hasNext: true,
+        ),
         fail: () => const ErrorView(),
         empty: () => const ErrorView(
           message: '検索結果は0件です',
