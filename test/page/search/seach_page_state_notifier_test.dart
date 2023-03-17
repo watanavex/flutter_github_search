@@ -1,17 +1,15 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
-// 📦 Package imports:
+import 'package:flutter_github_search/api/data/search_result.dart';
+import 'package:flutter_github_search/api/search_api.dart';
+import 'package:flutter_github_search/ui/page/search/notifier/search_state_notifier.dart';
+import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-// 🌎 Project imports:
-import 'package:flutter_github_search/api/data/search_result.dart';
-import 'package:flutter_github_search/api/search_api.dart';
-import 'package:flutter_github_search/ui/page/search/search_page_state.dart';
-import 'package:flutter_github_search/ui/page/search/search_page_state_notifier.dart';
 import '../../dummy/dummy_search_result.dart';
 import '../../helper.dart';
 import 'seach_page_state_notifier_test.mocks.dart';
@@ -40,11 +38,11 @@ void main() {
   });
 
   test('searchRepositories success', () async {
-    final notifier = _container.read(searchPageStateNotifierProvider.notifier);
+    final notifier = _container.read(searchStateNotifierProvider.notifier);
 
     final listener = Listener<SearchState>();
     _container.listen(
-      searchPageStateNotifierProvider.select((value) => value.searchState),
+      searchStateNotifierProvider,
       listener,
       fireImmediately: true,
     );
@@ -79,11 +77,11 @@ void main() {
   });
 
   test('searchRepositories fail', () async {
-    final notifier = _container.read(searchPageStateNotifierProvider.notifier);
+    final notifier = _container.read(searchStateNotifierProvider.notifier);
 
     final listener = Listener<SearchState>();
     _container.listen(
-      searchPageStateNotifierProvider.select((value) => value.searchState),
+      searchStateNotifierProvider,
       listener,
       fireImmediately: true,
     );
@@ -105,11 +103,11 @@ void main() {
   });
 
   test('searchRepositories empty', () async {
-    final notifier = _container.read(searchPageStateNotifierProvider.notifier);
+    final notifier = _container.read(searchStateNotifierProvider.notifier);
 
     final listener = Listener<SearchState>();
     _container.listen(
-      searchPageStateNotifierProvider.select((value) => value.searchState),
+      searchStateNotifierProvider,
       listener,
       fireImmediately: true,
     );
@@ -135,24 +133,21 @@ void main() {
   });
 
   test('fetchNext success', () async {
-    final notifier = _container.read(searchPageStateNotifierProvider.notifier);
+    final notifier = _container.read(searchStateNotifierProvider.notifier);
 
     final listener = Listener<SearchState>();
     _container.listen(
-      searchPageStateNotifierProvider.select((value) => value.searchState),
+      searchStateNotifierProvider,
       listener,
       fireImmediately: true,
     );
 
     // given
-    notifier.debugState = SearchPageState(
-      isSearchMode: false,
-      searchState: SearchState.success(
-        repositories: [],
-        query: 'query',
-        page: 1,
-        hasNext: true,
-      ),
+    notifier.debugState = const SearchState.success(
+      repositories: [],
+      query: 'query',
+      page: 1,
+      hasNext: true,
     );
 
     // when
@@ -171,7 +166,7 @@ void main() {
       listener(any, const SearchState.uninitialized()),
       listener(
         any,
-        SearchState.success(
+        const SearchState.success(
           repositories: [],
           query: 'query',
           page: 1,
@@ -200,24 +195,21 @@ void main() {
   });
 
   test('fetchNext fail', () async {
-    final notifier = _container.read(searchPageStateNotifierProvider.notifier);
+    final notifier = _container.read(searchStateNotifierProvider.notifier);
 
     final listener = Listener<SearchState>();
     _container.listen(
-      searchPageStateNotifierProvider.select((value) => value.searchState),
+      searchStateNotifierProvider,
       listener,
       fireImmediately: true,
     );
 
     // given
-    notifier.debugState = SearchPageState(
-      isSearchMode: false,
-      searchState: SearchState.success(
-        repositories: [],
-        query: 'query',
-        page: 1,
-        hasNext: true,
-      ),
+    notifier.debugState = const SearchState.success(
+      repositories: [],
+      query: 'query',
+      page: 1,
+      hasNext: true,
     );
     when(_mockSearchApi.search(any, any))
         .thenAnswer((realInvocation) => Future.error(Exception()));
@@ -230,7 +222,7 @@ void main() {
       listener(any, const SearchState.uninitialized()),
       listener(
         any,
-        SearchState.success(
+        const SearchState.success(
           repositories: [],
           query: 'query',
           page: 1,
@@ -247,7 +239,7 @@ void main() {
       ),
       listener(
         any,
-        SearchState.success(
+        const SearchState.success(
           repositories: [],
           query: 'query',
           page: 2,

@@ -1,41 +1,31 @@
-// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 
-// 📦 Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'search_page_state.freezed.dart';
 
 @freezed
-class SearchPageState with _$SearchPageState {
-  const factory SearchPageState({
-    required bool isSearchMode,
-    required SearchState searchState,
-  }) = _SearchPageState;
-}
-
-@freezed
 class SearchState with _$SearchState {
-  const factory SearchState.uninitialized() = Uninitialized;
+  const factory SearchState.uninitialized() = SearchStateUninitialized;
 
-  const factory SearchState.searching() = Searching;
+  const factory SearchState.searching() = SearchStateSearching;
 
-  factory SearchState.success({
+  const factory SearchState.success({
     required List<RepositorySummary> repositories,
     required String query,
     required int page,
     required bool hasNext,
-  }) = Success;
+  }) = SearchStateSuccess;
 
   const factory SearchState.fetchingNext({
     required List<RepositorySummary> repositories,
     required String query,
     required int page,
-  }) = FetchingNext;
+  }) = SearchStateFetchingNext;
 
-  const factory SearchState.fail() = Fail;
+  const factory SearchState.fail() = SearchStateFail;
 
-  const factory SearchState.empty() = Empty;
+  const factory SearchState.empty() = SearchStateEmpty;
 }
 
 @freezed

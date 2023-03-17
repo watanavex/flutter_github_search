@@ -1,13 +1,8 @@
-// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
-
-// 📦 Package imports:
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// 🌎 Project imports:
 import 'package:flutter_github_search/api/data/repository_detail.dart' as api;
 import 'package:flutter_github_search/api/repository_detail_api.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'detail_data.freezed.dart';
 
@@ -52,7 +47,7 @@ class Argment with _$Argment {
 
 final repositoryDetailFutureProvider = FutureProvider.family
     .autoDispose<RepositoryDetail, Argment>((ref, arg) async {
-  final api = ref.read(repositoryApiProvider);
+  final api = ref.watch(repositoryApiProvider);
 
   return api.fetch(arg.owner, arg.name).then((value) => value.convert());
 });
